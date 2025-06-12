@@ -1,6 +1,7 @@
 from github import Github
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone, date
 from collections import defaultdict
+import os
 def get_commits_by_author(repo_owner, repo_name, start_date=None, end_date=None, github_token=None):
     """
     Returns a dictionary of {author: [list of commits]} or None if no commits found
@@ -52,11 +53,11 @@ def get_commits_by_author(repo_owner, repo_name, start_date=None, end_date=None,
 # Example usage
 if __name__ == "__main__":
     # Configure these parameters
-    token = "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"  # Remove before sharing!
+    token = os.getenv("GITHUB_TOKEN")  # Remove before sharing!
     owner = "Hari2k3"
     repo = "Frontend-employeeapp"
     # Optional date filtering
-    start = datetime(2025, 6, 12, tzinfo=timezone.utc)
+    start = datetime.combine(date.today(), datetime.min.time(), tzinfo=timezone.utc)
     end = start + timedelta(days=1)
     # Get commits
     result = get_commits_by_author(owner, repo, start, end, token)
