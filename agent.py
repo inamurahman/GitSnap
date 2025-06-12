@@ -9,13 +9,11 @@ import uuid
 from IPython.display import Image, display
 from api import get_commits
 
-# 1. Define the state
 class ScrumState(MessagesState):
     commits: Optional[List[dict]]
     commit_summaries: Optional[List[str]]
     scrum_report: Optional[str]
 
-# 2. LLM Setup
 llm = ChatOpenAI(model="gpt-4o", temperature=0)
 
 # 3. Helper to maintain state and messages
@@ -26,7 +24,6 @@ def update_state(state, **kwargs):
         **kwargs
     }
 
-# 4. Mocked commit fetch
 def get_mock_commits(state: ScrumState):
     commits = get_commits()
     print(f"Found {len(commits)} commits")

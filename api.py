@@ -50,24 +50,15 @@ def get_commits_by_author(repo_owner, repo_name, start_date=None, end_date=None,
     except Exception as e:
         print(f"Error: {str(e)}")
         return None
-# Example usage
-if __name__ == "__main__":
-    # Configure these parameters
-    token = os.getenv("GITHUB_TOKEN")  # Remove before sharing!
+
+def get_commits():
+    """
+    Example function to demonstrate usage of get_commits_by_author.
+    This is not necessary for the main functionality but shows how to call it.
+    """
     owner = "Hari2k3"
     repo = "Frontend-employeeapp"
-    # Optional date filtering
     start = datetime.combine(date.today(), datetime.min.time(), tzinfo=timezone.utc)
     end = start + timedelta(days=1)
-    # Get commits
-    result = get_commits_by_author(owner, repo, start, end, token)
-    if result:
-        # print(result)
-        print(f"Found {len(result)} authors")
-        for author, commits in result.items():
-            print(f"\nAuthor: {author} ({len(commits)} commits)")
-            for i, commit in enumerate(commits[:3], 1):  # Print first 3 commits per author
-                # print(commit,"\n")
-                print(f"  {i}. {commit['message'][:50]}... ({commit['date']}) ({commit['patches']})")
-    else:
-        print("No commits found")
+    token = os.getenv("GITHUB_TOKEN")  # Ensure you set this environment variable
+    return get_commits_by_author(owner, repo, start, end, token)
