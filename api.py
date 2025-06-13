@@ -56,9 +56,10 @@ def get_commits():
     Example function to demonstrate usage of get_commits_by_author.
     This is not necessary for the main functionality but shows how to call it.
     """
-    owner = "Hari2k3"
-    repo = "Frontend-employeeapp"
+    owner = "inamurahman"
+    repo = "GitSnap"
     start = datetime.combine(date.today(), datetime.min.time(), tzinfo=timezone.utc)
     end = start + timedelta(days=1)
     token = os.getenv("GITHUB_TOKEN")  # Ensure you set this environment variable
     return get_commits_by_author(owner, repo, start, end, token)
+

@@ -28,7 +28,7 @@ def get_mock_commits(state: ScrumState):
     commits = get_commits()
     print(f"Found {len(commits)} commits")
     print("Sample commits:")
-    print(type(commits['Hari2k3']))  # Show first 3 commits for brevity
+    print(type(commits['inamurahman']))  # Show first 3 commits for brevity
     # for i, commit in enumerate(commits[:3], 1):  # Show first 3 commits
     #     print(f"{i}. {commit['message']} by {commit['author']} on {commit['date']}")
     commitList = []
@@ -75,8 +75,10 @@ class FinalSummary(BaseModel):
 
 def generate_scrum_report(state: ScrumState):
     combined = "\n".join(state["commit_summaries"])
-    prompt = f"""You are a Scrum Master assistant. Write a daily summary based on the following:
+    prompt = f"""You are a Scrum Master assistant. Write a daily scrum report based on the following commit summaries:
 {combined}
+today's date: {datetime.now().strftime('%Y-%m-%d')}
+don't put placeholders in the report, just write the report using the given data.
 """
     response = llm.with_structured_output(FinalSummary).invoke([HumanMessage(content=prompt)])
     print(f"Generated Scrum Report:\n{response.report}")
@@ -98,9 +100,6 @@ memory = MemorySaver()
 graph = builder.compile(checkpointer=memory)
 
 # Optional: visualize
-# display(Image(graph.get_graph(xray=True).draw_mermaid_png()))
-
-# 10. Invoke with a thread ID
 # state = graph.invoke({}, config={"thread_id": f"scrum-thread-{uuid.uuid4()}"})
 
 # # 11. Print result
@@ -120,4 +119,4 @@ def generate_scrum_report():
 
 
 
-print(generate_scrum_report())  # Call the function to generate the report
+# print(generate_scrum_report())  # Call the function to generate the report
